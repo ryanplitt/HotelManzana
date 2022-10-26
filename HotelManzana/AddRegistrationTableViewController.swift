@@ -21,6 +21,9 @@ class AddRegistrationTableViewController: UITableViewController {
     let checkinDatePickerIndexPath = IndexPath(row: 1, section: 1)
     let checkoutDatePickerIndexPath = IndexPath(row: 3, section: 1)
     
+    let checkinDateLabelIndexPath = IndexPath(row: 0, section: 1)
+    let checkoutDateLabelIndexPath = IndexPath(row: 2, section: 1)
+    
     var isCheckinDatePickerVisible: Bool = false {
         didSet {
             checkinDatePicker.isHidden = !isCheckinDatePickerVisible
@@ -76,5 +79,23 @@ class AddRegistrationTableViewController: UITableViewController {
         case checkoutDatePickerIndexPath: return 216
         default: return UITableView.automaticDimension
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        if indexPath == checkinDateLabelIndexPath && isCheckoutDatePickerVisible == false {
+            isCheckinDatePickerVisible.toggle()
+        } else if indexPath == checkoutDateLabelIndexPath && isCheckinDatePickerVisible == false {
+            isCheckoutDatePickerVisible.toggle()
+        } else if indexPath == checkinDateLabelIndexPath || indexPath == checkoutDateLabelIndexPath {
+            isCheckinDatePickerVisible.toggle()
+            isCheckoutDatePickerVisible.toggle()
+        } else {
+            return
+        }
+            
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
 }
