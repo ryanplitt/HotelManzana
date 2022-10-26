@@ -43,6 +43,8 @@ class AddRegistrationTableViewController: UITableViewController {
         let midnight = Calendar.current.startOfDay(for: Date())
         checkinDatePicker.minimumDate = midnight
         checkinDatePicker.date = midnight
+        
+        updateDateViews()
     }
     
     @IBAction func doneButtonTapped(_ sender: Any) {
@@ -56,6 +58,7 @@ class AddRegistrationTableViewController: UITableViewController {
     
     func updateDateViews() {
         checkinDateLabel.text = checkinDatePicker.date.formatted(date: .abbreviated, time: .omitted)
+        checkoutDateLabel.text = checkoutDatePicker.date.formatted(date: .abbreviated, time: .omitted)
         
         checkoutDatePicker.minimumDate = Calendar.current.date(byAdding:
            .day, value: 1, to: checkinDatePicker.date)
